@@ -11,12 +11,16 @@ class FoodController(context: Context){
 
      fun addFoodToArrayList(foodToAdd: Food){
         foodRoomDatabase.foodDao().insertFood(foodToAdd)
-        Preference.listFoodData.add(foodToAdd)
+         if (!Preference.listFoodData.contains(foodToAdd)) {
+             Preference.listFoodData.add(foodToAdd)
+         }
     }
 
      fun deleteFoodFromArrayList(foodToDelete: Food){
         foodRoomDatabase.foodDao().deleteFood(foodToDelete.name)
-        Preference.listFoodData.remove(foodToDelete)
+         if (Preference.listFoodData.contains(foodToDelete)) {
+             Preference.listFoodData.remove(foodToDelete)
+         }
     }
 
     fun loadListOfFood(){
